@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anveshan Technology — Mineral exploration, reimagined with intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F8F1; --surface:#FFFFFF; --surface-alt:#ECF1E4;
+    --ink:#152318; --ink-soft:#46594B; --ink-faint:#7C8E7E;
+    --primary:#25503A; --primary-ink:#FFFFFF; --accent:#A9832E;
+    --line:#D8E2CC; --line-strong:#B9C9AC;
+    --radius:2px;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    box-sizing:border-box;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#101911; --surface:#152018; --surface-alt:#182319;
+      --ink:#EAF1E4; --ink-soft:#AEC0AC; --ink-faint:#75897A;
+      --primary:#7FBF98; --primary-ink:#0E1710; --accent:#D8B65A;
+      --line:#28362A; --line-strong:#334333;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#101911; --surface:#152018; --surface-alt:#182319;
+    --ink:#EAF1E4; --ink-soft:#AEC0AC; --ink-faint:#75897A;
+    --primary:#7FBF98; --primary-ink:#0E1710; --accent:#D8B65A;
+    --line:#28362A; --line-strong:#334333;
+  }
+  html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));}
+  *{box-sizing:border-box;}
+  html,body{height:auto;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif; font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif; font-weight:500; color:var(--ink); margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  p{margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding-left:24px; padding-right:24px;}
+  img,svg{max-width:100%; display:block;}
+  .scroll-x{overflow-x:auto;}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 24px; max-width:1120px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:19px; font-weight:600;}
+  .brand-mark{width:11px; height:11px; border-radius:50%; background:var(--primary); flex:none;}
+  .nav-links{display:flex; gap:28px; font-size:14.5px;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{font-size:14px; padding:9px 16px; border:1px solid var(--ink); text-decoration:none; white-space:nowrap;}
+  .nav-cta:hover{background:var(--ink); color:var(--bg);}
+  .nav-mobile-toggle{display:none;}
+
+  /* Hero */
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center; padding:76px 24px 64px; max-width:1120px; margin:0 auto;}
+  .hero h1{font-size:clamp(34px,5.2vw,54px); line-height:1.08;}
+  .hero-lede{margin-top:22px; max-width:46ch; color:var(--ink-soft); font-size:17.5px;}
+  .hero-meta{margin-top:28px; font-size:12.5px; color:var(--ink-faint); letter-spacing:.02em;}
+  .hero-cta{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{display:inline-block; padding:13px 22px; text-decoration:none; font-size:14.5px; border:1px solid var(--ink); transition:.15s;}
+  .btn-solid{background:var(--primary); border-color:var(--primary); color:var(--primary-ink);}
+  .btn-solid:hover{opacity:.88;}
+  .btn-outline:hover{background:var(--ink); color:var(--bg);}
+  .hero-art{aspect-ratio:1/1; position:relative;}
+  .hero-art svg{width:100%; height:100%;}
+
+  /* Section base */
+  section{padding:76px 0; border-bottom:1px solid var(--line);}
+  section.alt{background:var(--surface-alt);}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .kicker{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--accent); margin-bottom:12px; display:block;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px); line-height:1.15;}
+  .section-head p{margin-top:14px; color:var(--ink-soft); font-size:16px; max-width:54ch;}
+
+  /* Thesis columns */
+  .thesis-lead{max-width:70ch; color:var(--ink-soft); font-size:17px; margin-bottom:48px;}
+  .thesis-cols{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .thesis-col{background:var(--surface); padding:28px 26px;}
+  .thesis-col .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-faint);}
+  .thesis-col h3{font-size:19px; margin-top:10px; font-weight:500;}
+  .thesis-col p{margin-top:10px; color:var(--ink-soft); font-size:14.8px;}
+  .thesis-note{margin-top:36px; padding-top:28px; border-top:1px solid var(--line); font-size:16.5px; max-width:70ch; font-family:'Fraunces',serif; font-style:italic; color:var(--ink);}
+
+  /* Legend-style module list (ecosystem) */
+  .legend{border-top:1px solid var(--line-strong);}
+  .legend-row{display:grid; grid-template-columns:56px 1fr 1.3fr 128px; gap:20px; padding:22px 0; border-bottom:1px solid var(--line); align-items:baseline;}
+  .legend-row .idx{font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px;}
+  .legend-row .name{font-family:'Fraunces',serif; font-size:19px; font-weight:500;}
+  .legend-row .cat{display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); margin-top:5px; letter-spacing:.02em;}
+  .legend-row .desc{color:var(--ink-soft); font-size:14.8px;}
+  .legend-foot{margin-top:26px; font-size:13.5px; color:var(--ink-faint);}
+  .prod-status{justify-self:end; font-family:'IBM Plex Mono',monospace; font-size:12.5px; white-space:nowrap; text-decoration:none;}
+  .prod-status.live{color:var(--primary);}
+  .prod-status.live:hover{text-decoration:underline;}
+  .prod-status.live::before{content:"● "; font-size:9px;}
+  .prod-status.soon{color:var(--ink-faint);}
+
+  /* Tech table */
+  .tech-table{width:100%; border-collapse:collapse; font-size:14.8px;}
+  .tech-table th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); font-weight:400; padding:0 16px 14px 0; border-bottom:1px solid var(--line-strong);}
+  .tech-table td{padding:18px 16px 18px 0; border-bottom:1px solid var(--line); vertical-align:top;}
+  .tech-table td:first-child{font-family:'Fraunces',serif; font-size:16.5px; white-space:nowrap;}
+  .tech-table td:last-child{color:var(--ink-soft);}
+
+  /* Audience grid */
+  .audience-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .audience-card{background:var(--surface); padding:26px 24px; min-height:150px;}
+  .audience-card h3{font-size:17px; font-weight:500;}
+  .audience-card p{margin-top:10px; color:var(--ink-soft); font-size:14.3px;}
+
+  /* Roadmap timeline */
+  .timeline{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .timeline-item{border-top:2px solid var(--primary); padding-top:16px;}
+  .timeline-item .yr{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-faint);}
+  .timeline-item h3{font-size:19px; margin-top:6px;}
+  .timeline-item p{margin-top:10px; color:var(--ink-soft); font-size:14.3px;}
+  .timeline-gates{margin-top:40px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink-faint);}
+
+  /* Business model */
+  .model-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  .model-card h3{font-size:19px; font-weight:500;}
+  .model-card .tag{display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--accent); margin-bottom:8px;}
+  .model-card p{margin-top:10px; color:var(--ink-soft); font-size:14.8px;}
+  .model-note{margin-top:40px; padding:22px 24px; background:var(--surface); border:1px solid var(--line); font-size:14.5px; color:var(--ink-soft);}
+
+  /* Investors */
+  .capital-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:56px;}
+  .capital-card{background:var(--surface); padding:24px 22px;}
+  .capital-card .amt{font-family:'Fraunces',serif; font-size:26px; color:var(--primary);}
+  .capital-card .when{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); margin-top:4px; display:block;}
+  .capital-card p{margin-top:12px; font-size:13.6px; color:var(--ink-soft);}
+  .partner-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-bottom:52px;}
+  .partner-grid h3{font-size:17.5px; font-weight:500;}
+  .partner-grid p{margin-top:8px; color:var(--ink-soft); font-size:14.3px;}
+  .ask-box{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; padding:34px 32px; background:var(--primary); color:var(--primary-ink);}
+  .ask-box h3{color:var(--primary-ink); font-size:23px; max-width:32ch;}
+  .ask-box .btn{border-color:var(--primary-ink); color:var(--primary-ink);}
+  .ask-box .btn:hover{background:var(--primary-ink); color:var(--primary);}
+
+  footer{padding:52px 0 36px; font-size:13.5px; color:var(--ink-faint);}
+  .footer-top{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:22px;}
+  .footer-brand{font-family:'Fraunces',serif; font-size:17px; color:var(--ink);}
+  .footer-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-links a{text-decoration:none; color:var(--ink-faint);}
+  .footer-links a:hover{color:var(--ink);}
+  .disclaimer{max-width:70ch; line-height:1.6;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hero-grid{grid-template-columns:1fr; padding-top:52px;}
+    .hero-art{display:none;}
+    .thesis-cols,.audience-grid{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:1fr 1fr; row-gap:32px;}
+    .model-grid{grid-template-columns:1fr; gap:28px;}
+    .capital-grid{grid-template-columns:1fr 1fr;}
+    .partner-grid{grid-template-columns:1fr; gap:26px;}
+    .legend-row{grid-template-columns:40px 1fr; row-gap:6px;}
+    .legend-row .desc{grid-column:1/-1;}
+    .legend-row .prod-status{grid-column:1/-1; justify-self:start;}
+    .tech-table{display:block; overflow-x:auto;}
+    .ask-box{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="brand-mark"></span>Anveshan Technology</div>
+    <nav class="nav-links">
+      <a href="#ecosystem">Products</a>
+      <a href="#technology">Technology</a>
+      <a href="#customers">Customers</a>
+      <a href="#contact">Company</a>
+    </nav>
+    <a class="nav-cta" href="mailto:hello@anveshantechnology.com">Book a demo</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <h1>Mineral exploration, reimagined with intelligence.</h1>
+      <p class="hero-lede">Anveshan Technology builds an interoperable AI platform that connects surface evidence, subsurface models and exploration decisions — turning fragmented geoscience data into targets, resource models and risk-adjusted value.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#ecosystem">Explore the platform</a>
+        <a class="btn btn-outline" href="#contact">Book a demo</a>
+      </div>
+      <p class="hero-meta mono">Discover · Model · Value</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <img src="image_7ddc8d2.jpg" alt="" />
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The opportunity</span>
+      <h2>Exploration insight is fragmented. Better decisions can't wait.</h2>
+    </div>
+    <p class="thesis-lead">Exploration teams generate vast datasets, but insight is often fragmented across tools, disciplines and project economics. Anveshan's thesis: build an interoperable intelligence layer spanning surface evidence, subsurface models and investment choices.</p>
+    <div class="thesis-cols">
+      <div class="thesis-col">
+        <span class="num mono">01</span>
+        <h3>Fragmented workflows</h3>
+        <p>Remote sensing, geochemistry, geophysics, drilling and economics are commonly handled in separate environments.</p>
+      </div>
+      <div class="thesis-col">
+        <span class="num mono">02</span>
+        <h3>Uncertainty remains</h3>
+        <p>Targets must be interpreted with incomplete data, non-unique geophysical responses and evolving geological models.</p>
+      </div>
+      <div class="thesis-col">
+        <span class="num mono">03</span>
+        <h3>Capital is staged</h3>
+        <p>Exploration investment requires decisions on where to survey, drill, advance, partner, defer or exit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="ecosystem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Products &amp; services</span>
+      <h2>One ecosystem across the exploration lifecycle</h2>
+      <p>Modular products on a shared data model, APIs, project context and reproducible workflows — not five disconnected packages.</p>
+    </div>
+    <div class="legend">
+      <div class="legend-row">
+        <span class="idx mono">01</span>
+        <div><span class="name">SpectraXplore<sup>™</sup></span><span class="cat">SURFACE · REMOTE SENSING</span></div>
+        <p class="desc">AI-based satellite imagery analysis, alteration mapping, structural interpretation and mineral targeting.</p>
+        <a class="prod-status live" href="https://spectraxplore.github.io/SpectraXplore/" target="_blank" rel="noopener">Visit product</a>
+      </div>
+      <div class="legend-row">
+        <span class="idx mono">02</span>
+        <div><span class="name">GeochemLab</span><span class="cat">GEOCHEMISTRY</span></div>
+        <p class="desc">Soil, rock and borehole geochemistry with QA/QC, multivariate analysis and ML-based anomaly detection.</p>
+        <span class="prod-status soon">Coming soon</span>
+      </div>
+      <div class="legend-row">
+        <span class="idx mono">03</span>
+        <div><span class="name">Geo3D</span><span class="cat">GEOPHYSICS</span></div>
+        <p class="desc">Multi-physics inversion ecosystem — GravMagPro, TerraEM, SPExplorer and Resistivity/IP — with joint inversion and uncertainty. GravMagPro is live today.</p>
+        <a class="prod-status live" href="https://gravmagpro.github.io/GravMagPro-Professional/" target="_blank" rel="noopener">Visit GravMagPro</a>
+      </div>
+      <div class="legend-row">
+        <span class="idx mono">04</span>
+        <div><span class="name">Prospectra Discover</span><span class="cat">INTEGRATION</span></div>
+        <p class="desc">AI prospectivity mapping and target ranking through multi-source evidence fusion and spatial validation.</p>
+        <span class="prod-status soon">Coming soon</span>
+      </div>
+      <div class="legend-row">
+        <span class="idx mono">05</span>
+        <div><span class="name">Prospectra Resource</span><span class="cat">SUBSURFACE</span></div>
+        <p class="desc">Borehole-constrained 3D geological modelling, drillhole integration, domaining and geostatistics.</p>
+        <span class="prod-status soon">Coming soon</span>
+      </div>
+      <div class="legend-row">
+        <span class="idx mono">06</span>
+        <div><span class="name">Prospectra Value</span><span class="cat">ECONOMICS</span></div>
+        <p class="desc">Exploration licence and asset valuation, drilling economics, real options and JV decision support.</p>
+        <span class="prod-status soon">Coming soon</span>
+      </div>
+    </div>
+    <p class="legend-foot">Shared platform capabilities: borehole constraints · structural coupling · joint/cooperative inversion · uncertainty quantification · GPU/HPC · 3D visualization.</p>
+  </div>
+</section>
+
+<section id="technology">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Technology</span>
+      <h2>Prospectra: from mineral discovery to market intelligence</h2>
+      <p>Five interoperable modules connect exploration evidence with resource, economic and commodity-market modelling.</p>
+    </div>
+    <div class="scroll-x">
+      <table class="tech-table">
+        <thead><tr><th>Module</th><th>Core capabilities</th></tr></thead>
+        <tbody>
+          <tr><td>Discover</td><td>AI-driven mineral prospectivity — semi-supervised LSTM + CNN/GCN, Weight of Evidence, Bayesian networks.</td></tr>
+          <tr><td>Resource</td><td>Geological modelling, borehole integration, resource estimation, geostatistics and uncertainty analysis.</td></tr>
+          <tr><td>Value</td><td>Project economics, early-stage valuation, scoping studies, investment analysis and real-options modelling.</td></tr>
+          <tr><td>Market Intelligence</td><td>Commodity price forecasting, supply-demand analysis, market scenarios and strategic insights.</td></tr>
+          <tr><td>Model Studio</td><td>User-configurable price-forecasting, system-dynamics and agent-based models.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="customers">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Who it's for</span>
+      <h2>Built for every decision-maker in the value chain</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card"><h3>Exploration companies</h3><p>Prioritize targets, integrate datasets and plan staged work programmes.</p></div>
+      <div class="audience-card"><h3>Junior miners</h3><p>Evaluate licences, communicate technical evidence and assess funding or JV alternatives.</p></div>
+      <div class="audience-card"><h3>Mid-tier &amp; major miners</h3><p>Integrate specialist workflows, standardize interpretation and support portfolio decisions.</p></div>
+      <div class="audience-card"><h3>Geophysical contractors</h3><p>Access complementary inversion capabilities and deliver integrated interpretation.</p></div>
+      <div class="audience-card"><h3>Data &amp; technical teams</h3><p>Standardize interpretation with reproducible, uncertainty-aware modelling workflows.</p></div>
+      <div class="audience-card"><h3>Government &amp; research bodies</h3><p>Support data integration, prospectivity studies and technology-led exploration programs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">2026 – 2030</span>
+      <h2>Product roadmap</h2>
+      <p>How we're building the platform, phase by phase — from foundation to global scale.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item"><span class="yr mono">2026–27</span><h3>Foundation</h3><p>Incorporation, IP, shared architecture, integrated MVP, datasets, initial pilots and grant submissions.</p></div>
+      <div class="timeline-item"><span class="yr mono">2027–28</span><h3>Validation</h3><p>Borehole-constrained inversion, Resource/Value prototypes, independent case studies and first paid deployments.</p></div>
+      <div class="timeline-item"><span class="yr mono">2028–29</span><h3>Commercialize</h3><p>Enterprise releases, international pilots, recurring licences, partner channels and seed-funded growth.</p></div>
+      <div class="timeline-item"><span class="yr mono">2029–30</span><h3>Scale</h3><p>Broader commodities, APIs and cloud, portfolio intelligence, global distribution and strategic alliances.</p></div>
+    </div>
+    <p class="timeline-gates">Each phase builds on validated technology and real customer deployments before we move to the next.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">How it works</span>
+      <h2>Discover, model, value — in one workflow</h2>
+    </div>
+    <div class="model-grid">
+      <div class="model-card"><span class="tag mono">DISCOVER</span><h3>Find the targets</h3><p>Fuse satellite, geochemical and geophysical evidence into ranked, AI-scored prospectivity targets.</p></div>
+      <div class="model-card"><span class="tag mono">MODEL</span><h3>Build the model</h3><p>Turn drillholes and inversions into borehole-constrained 3D geology with quantified uncertainty.</p></div>
+      <div class="model-card"><span class="tag mono">VALUE</span><h3>Decide with confidence</h3><p>Convert models into licence valuations, drilling economics and risk-adjusted investment scenarios.</p></div>
+    </div>
+    <p class="model-note">Start with the module you need most — SpectraXplore, GeochemLab or Geo3D — and expand into the full Prospectra workflow as your program grows.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Get started</span>
+      <h2>See Anveshan on your own data</h2>
+      <p>Bring your exploration datasets and we'll show you how Discover, Resource and Value connect end to end — from satellite imagery to a risk-adjusted decision.</p>
+    </div>
+    <div class="partner-grid">
+      <div><h3>Book a demo</h3><p>Walk through the platform on a live project and see the workflow on your own data.</p></div>
+      <div><h3>Start with one module</h3><p>Begin with SpectraXplore, GeochemLab or Geo3D and expand as your program grows.</p></div>
+      <div><h3>Talk to our team</h3><p>Questions on deployment, data security, pricing or enterprise plans — we're happy to help.</p></div>
+    </div>
+    <div class="ask-box">
+      <h3>Ready to explore your next target?</h3>
+      <a class="btn" href="mailto:hello@anveshantechnology.com">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">Anveshan Technology Pvt. Ltd.</div>
+      <nav class="footer-links">
+        <a href="#ecosystem">Products</a>
+        <a href="#technology">Technology</a>
+        <a href="#customers">Customers</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:hello@anveshantechnology.com">Book a demo</a>
+      </nav>
+    </div>
+    <p class="disclaimer">Anveshan Technology builds AI-driven software for mineral exploration and resource intelligence, connecting surface evidence, subsurface models and exploration economics in one platform. Prospectivity scores and conceptual targets are not Mineral Resources or Reserves; formal reporting requires applicable codes and qualified professionals. © 2026 Anveshan Technology Pvt. Ltd.</p>
+  </div>
+</footer>
+
+</body>
+</html>
